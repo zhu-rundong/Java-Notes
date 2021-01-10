@@ -11,3 +11,9 @@
 ## # MySQL
 
 - [MySQL5.7主从复制](https://github.com/zhu-rundong/blog/issues/2)
+
+
+## # Redis
+
+- [centos7 安装 redis-6.0.9](https://github.com/zhu-rundong/blog/issues/7)
+- [Redis Desktop Manager 连接 vmware 虚拟机中的 Redis 服务](https://github.com/zhu-rundong/blog/issues/8)
