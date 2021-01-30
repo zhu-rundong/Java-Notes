@@ -23,13 +23,14 @@
 
   - [【Soul源码阅读-01】环境搭建](https://github.com/zhu-rundong/blog/issues/9)
   - [【Soul源码阅读-02】devide插件负载均衡权重分析](https://github.com/zhu-rundong/blog/issues/10)
-  - [【Soul源码阅读-03】dubbo插件SoulDubboClient注解分析](https://github.com/zhu-rundong/blog/issues/11) 
-  - [【Soul源码阅读-04】sofa插件初体验](https://github.com/zhu-rundong/blog/issues/12) 
-  - [【Soul源码阅读-05】springcloud插件初体验](https://github.com/zhu-rundong/blog/issues/13) 
-  - [【Soul源码阅读-06】数据同步之websocket](https://github.com/zhu-rundong/blog/issues/14)
-  - [【Soul源码阅读-07】数据同步之zookeeper](https://github.com/zhu-rundong/blog/issues/15) 
-  - [【Soul源码阅读-08】数据同步之http长轮询](https://github.com/zhu-rundong/blog/issues/16) 
-  - [【Soul源码阅读-09】数据同步之nacos](https://github.com/zhu-rundong/blog/issues/17)
+  - [【Soul源码阅读-03】devide插件IP端口探活分析](https://github.com/zhu-rundong/blog/issues/21)
+  - [【Soul源码阅读-04】dubbo插件SoulDubboClient注解分析](https://github.com/zhu-rundong/blog/issues/11) 
+  - [【Soul源码阅读-05】sofa插件初体验](https://github.com/zhu-rundong/blog/issues/12) 
+  - [【Soul源码阅读-06】springcloud插件初体验](https://github.com/zhu-rundong/blog/issues/13) 
+  - [【Soul源码阅读-08】数据同步之websocket](https://github.com/zhu-rundong/blog/issues/14)
+  - [【Soul源码阅读-09】数据同步之zookeeper](https://github.com/zhu-rundong/blog/issues/15) 
+  - [【Soul源码阅读-10】数据同步之http长轮询](https://github.com/zhu-rundong/blog/issues/16) 
+  - [【Soul源码阅读-11】数据同步之nacos](https://github.com/zhu-rundong/blog/issues/17)
 
 - **综合篇**
 
