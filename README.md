@@ -8,6 +8,11 @@
 - [Spring Boot + MyBatis-plus + shardingsphere 实现水平分库分表](https://github.com/zhu-rundong/blog/issues/5)
 - [Spring Boot + MyBatis-plus + shardingsphere 整合分布式事务(基于Atomikos XA) ](https://github.com/zhu-rundong/blog/issues/6)
 
+## # JVM
+
+- [Java 代码时怎么运行的](https://github.com/zhu-rundong/blog/issues/26)
+- [JVM类加载机制](https://github.com/zhu-rundong/blog/issues/27)
+
 ## # MySQL
 
 - [MySQL5.7主从复制](https://github.com/zhu-rundong/blog/issues/2)
