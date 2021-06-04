@@ -12,7 +12,11 @@
 
 - [Java 代码时怎么运行的](https://github.com/zhu-rundong/blog/issues/26)
 - [JVM类加载机制](https://github.com/zhu-rundong/blog/issues/27)
-
+- [JVM是如何执行方法调用的](https://github.com/zhu-rundong/blog/issues/28)
+- [JVM 是如何处理异常的](https://github.com/zhu-rundong/blog/issues/29)
+- [JVM是如何实现反射的 ](https://github.com/zhu-rundong/blog/issues/30)
+- [垃圾回收](https://github.com/zhu-rundong/blog/issues/31)
+- [常见的 GC 分析及总结](https://github.com/zhu-rundong/blog/issues/32)
 ## # MySQL
 
 - [MySQL5.7主从复制](https://github.com/zhu-rundong/blog/issues/2)
