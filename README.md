@@ -21,14 +21,17 @@
 
 - [MySQL5.7主从复制](https://github.com/zhu-rundong/blog/issues/2)
 
+
+## # RabbitMQ
+
+- [RabbitMQ 的安装与配置](https://github.com/zhu-rundong/blog/issues/32)
+
+
 ## # Redis
 
 - [centos7 安装 redis-6.0.9](https://github.com/zhu-rundong/blog/issues/7)
 - [Redis Desktop Manager 连接 vmware 虚拟机中的 Redis 服务](https://github.com/zhu-rundong/blog/issues/8)
 
-## # RabbitMQ
-
-- [RabbitMQ 的安装与配置](https://github.com/zhu-rundong/blog/issues/32)
 
 ##  # Soul 源码阅读
 
