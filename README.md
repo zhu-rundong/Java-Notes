@@ -10,27 +10,22 @@
 
 ## # JVM
 
-### ## JVM 基本原理
-
-- [Java 代码时怎么运行的](https://github.com/zhu-rundong/blog/issues/26)
-- [Java 字节码](https://github.com/zhu-rundong/blog/issues/38)
-- [JVM 类加载机制](https://github.com/zhu-rundong/blog/issues/27)
-- [JVM 是如何执行方法调用的](https://github.com/zhu-rundong/blog/issues/28)
-- [JVM 是如何处理异常的](https://github.com/zhu-rundong/blog/issues/29)
-- [JVM 是如何实现反射的](https://github.com/zhu-rundong/blog/issues/30)
-- [JVM 内存结构](https://github.com/zhu-rundong/blog/issues/34)
-- [垃圾回收](https://github.com/zhu-rundong/blog/issues/31)
-- [常见的 GC 分析及总结](https://github.com/zhu-rundong/blog/issues/32)
-
-### ## 高效编译
-
-- [Java 内存模型](https://github.com/zhu-rundong/blog/issues/35)
-- [JVM 是怎么实现synchronized的](https://github.com/zhu-rundong/blog/issues/36)
-- [即时编译](https://github.com/zhu-rundong/blog/issues/37)
-- [方法内联](https://github.com/zhu-rundong/blog/issues/39)
-- [逃逸分析](https://github.com/zhu-rundong/blog/issues/40)
-
-
+- **JVM 基本原理**
+  - [Java 代码时怎么运行的](https://github.com/zhu-rundong/blog/issues/26)
+  - [Java 字节码](https://github.com/zhu-rundong/blog/issues/38)
+  - [JVM 类加载机制](https://github.com/zhu-rundong/blog/issues/27)
+  - [JVM 是如何执行方法调用的](https://github.com/zhu-rundong/blog/issues/28)
+  - [JVM 是如何处理异常的](https://github.com/zhu-rundong/blog/issues/29)
+  - [JVM 是如何实现反射的](https://github.com/zhu-rundong/blog/issues/30)
+  - [JVM 内存结构](https://github.com/zhu-rundong/blog/issues/34)
+  - [垃圾回收](https://github.com/zhu-rundong/blog/issues/31)
+  - [常见的 GC 分析及总结](https://github.com/zhu-rundong/blog/issues/32)
+- **高效编译**
+  - [Java 内存模型](https://github.com/zhu-rundong/blog/issues/35)
+  - [JVM 是怎么实现synchronized的](https://github.com/zhu-rundong/blog/issues/36)
+  - [即时编译](https://github.com/zhu-rundong/blog/issues/37)
+  - [方法内联](https://github.com/zhu-rundong/blog/issues/39)
+  - [逃逸分析](https://github.com/zhu-rundong/blog/issues/40)
 ## # MySQL
 
 - [MySQL5.7主从复制](https://github.com/zhu-rundong/blog/issues/2)
