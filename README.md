@@ -26,6 +26,14 @@
   - [即时编译](https://github.com/zhu-rundong/blog/issues/37)
   - [方法内联](https://github.com/zhu-rundong/blog/issues/39)
   - [逃逸分析](https://github.com/zhu-rundong/blog/issues/40)
+
+## Kafka
+
+- **软件安装**
+  - [Linux下安装Kafka](https://github.com/zhu-rundong/blog/issues/43)
+  - [Windows 本机连不上虚拟机的kafka解决方案](https://github.com/zhu-rundong/blog/issues/44)
+  
+
 ## # MySQL
 
 - [MySQL5.7主从复制](https://github.com/zhu-rundong/blog/issues/2)
@@ -33,13 +41,13 @@
 
 ## # RabbitMQ
 
-- [RabbitMQ 的安装与配置](https://github.com/zhu-rundong/blog/issues/32)
+- [RabbitMQ 的安装与配置](https://github.com/zhu-rundong/blog/issues/33)
 
 
 ## # Redis
-
-- [centos7 安装 redis-6.0.9](https://github.com/zhu-rundong/blog/issues/7)
-- [Redis Desktop Manager 连接 vmware 虚拟机中的 Redis 服务](https://github.com/zhu-rundong/blog/issues/8)
+- **软件安装**
+  - [centos7 安装 redis-6.0.9](https://github.com/zhu-rundong/blog/issues/7)
+  - [Redis Desktop Manager 连接 vmware 虚拟机中的 Redis 服务](https://github.com/zhu-rundong/blog/issues/8)
 
 
 ##  # Soul 源码阅读
@@ -63,5 +71,8 @@
   - [【Soul源码阅读-Ⅰ】数据同步总结](https://github.com/zhu-rundong/blog/issues/23)
   - [【Soul源码阅读-Ⅱ】模拟集群部署](https://github.com/zhu-rundong/blog/issues/24)
 
-  
+  ## Zookeeper
+
+- **软件安装**
+  - [Linux下安装Zookeeper](https://github.com/zhu-rundong/blog/issues/42)
 
