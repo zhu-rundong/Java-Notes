@@ -27,7 +27,7 @@
   - [方法内联](https://github.com/zhu-rundong/blog/issues/39)
   - [逃逸分析](https://github.com/zhu-rundong/blog/issues/40)
 
-## Kafka
+## # Kafka
 
 - **软件安装**
   - [Linux下安装Kafka](https://github.com/zhu-rundong/blog/issues/43)
@@ -71,7 +71,7 @@
   - [【Soul源码阅读-Ⅰ】数据同步总结](https://github.com/zhu-rundong/blog/issues/23)
   - [【Soul源码阅读-Ⅱ】模拟集群部署](https://github.com/zhu-rundong/blog/issues/24)
 
-  ## Zookeeper
+##  # Zookeeper
 
 - **软件安装**
   - [Linux下安装Zookeeper](https://github.com/zhu-rundong/blog/issues/42)
