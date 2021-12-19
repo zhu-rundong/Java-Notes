@@ -17,6 +17,10 @@
   - [Docker概览](https://github.com/zhu-rundong/blog/issues/46)
   - [Docker命令](https://github.com/zhu-rundong/blog/issues/47)
   - [Docker数据卷](https://github.com/zhu-rundong/blog/issues/49)
+  - [dockerfile指令](https://github.com/zhu-rundong/blog/issues/51)
+  - [手动制作nginx镜像](https://github.com/zhu-rundong/blog/issues/50)
+  - [dockerfile自动构建nginx镜像](https://github.com/zhu-rundong/blog/issues/52)
+  - [dockerfile自动构建tomcat镜像](https://github.com/zhu-rundong/blog/issues/53)
 
 - **问题总结**
   - [Docker进程无法正常停止](https://github.com/zhu-rundong/blog/issues/48)
