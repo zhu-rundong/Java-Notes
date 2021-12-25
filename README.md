@@ -10,7 +10,7 @@
 
 ## # Docker
 
-- **软件安装**
+- **环境搭建**
   - [Linux下安装Docker](https://github.com/zhu-rundong/blog/issues/45)
 
 - **学习笔记**
@@ -46,7 +46,7 @@
 
 ## # Kafka
 
-- **软件安装**
+- **环境搭建**
   - [Linux下安装Kafka](https://github.com/zhu-rundong/blog/issues/43)
   - [Windows 本机连不上虚拟机的kafka解决方案](https://github.com/zhu-rundong/blog/issues/44)
   
@@ -57,12 +57,13 @@
 
 
 ## # RabbitMQ
+- **环境搭建**
+  - [RabbitMQ 的安装与配置](https://github.com/zhu-rundong/blog/issues/33)
 
-- [RabbitMQ 的安装与配置](https://github.com/zhu-rundong/blog/issues/33)
 
 
 ## # Redis
-- **软件安装**
+- **环境搭建**
   - [centos7 安装 redis-6.0.9](https://github.com/zhu-rundong/blog/issues/7)
   - [Redis Desktop Manager 连接 vmware 虚拟机中的 Redis 服务](https://github.com/zhu-rundong/blog/issues/8)
 
@@ -90,6 +91,6 @@
 
 ##  # Zookeeper
 
-- **软件安装**
+- **环境搭建**
   - [Linux下安装Zookeeper](https://github.com/zhu-rundong/blog/issues/42)
 
