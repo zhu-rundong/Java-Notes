@@ -23,25 +23,24 @@
 - **问题总结**
     - [Docker进程无法正常停止](Docker/Docker进程无法正常停止.md)
 
-
 ## # JVM
 
-- **JVM 基本原理**
-  - [Java 代码时怎么运行的](https://github.com/zhu-rundong/blog/issues/26)
-  - [Java 字节码](https://github.com/zhu-rundong/blog/issues/38)
-  - [JVM 类加载机制](https://github.com/zhu-rundong/blog/issues/27)
-  - [JVM 是如何执行方法调用的](https://github.com/zhu-rundong/blog/issues/28)
-  - [JVM 是如何处理异常的](https://github.com/zhu-rundong/blog/issues/29)
-  - [JVM 是如何实现反射的](https://github.com/zhu-rundong/blog/issues/30)
-  - [JVM 内存结构](https://github.com/zhu-rundong/blog/issues/34)
-  - [垃圾回收](https://github.com/zhu-rundong/blog/issues/31)
-  - [常见的 GC 分析及总结](https://github.com/zhu-rundong/blog/issues/32)
-- **高效编译**
-  - [Java 内存模型](https://github.com/zhu-rundong/blog/issues/35)
-  - [JVM 是怎么实现synchronized的](https://github.com/zhu-rundong/blog/issues/36)
-  - [即时编译](https://github.com/zhu-rundong/blog/issues/37)
-  - [方法内联](https://github.com/zhu-rundong/blog/issues/39)
-  - [逃逸分析](https://github.com/zhu-rundong/blog/issues/40)
+- **知识梳理**
+
+    - [Java代码是怎么运行的](JVM/Java代码是怎么运行的.md)
+    - [Java字节码](JVM/Java字节码.md)
+    - [JVM类加载机制](JVM/JVM类加载机制.md)
+    - [JVM是如何执行方法调用的](JVM/JVM是如何执行方法调用的.md)
+    - [JVM是如何处理异常的](JVM/JVM是如何处理异常的.md)
+    - [JVM是如何实现反射的](JVM/JVM是如何实现反射的)
+    - [JVM内存结构](JVM/JVM内存结构.md)
+    - [垃圾回收](JVM/垃圾回收.md)
+    - [常见的GC分析及总结](JVM/常见的GC分析及总结.md)
+    - [Java内存模型](JVM/Java内存模型.md)
+    - [JVM是怎么实现synchronized的](JVM/JVM是怎么实现synchronized的.md)
+    - [即时编译](JVM/即时编译.md)
+    - [方法内联](JVM/方法内联.md)
+    - [逃逸分析](JVM/逃逸分析.md)
 
 ## # Kafka
 
