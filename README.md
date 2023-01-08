@@ -70,7 +70,7 @@
     - [centos7安装redis-6.0.9](./Redis/centos7安装redis-6.0.9.md)
     - [centos7安装redis-6.0.9（多个Redis实例）](./Redis/centos7安装redis-6.0.9（多个Redis实例）.md)
     - [Redis Desktop Manager 连接vmware虚拟机中的Redis服务](./Redis/RedisDesktopManager连接vmware虚拟机中的Redis服务.md)
-    - [Redis安装布隆过滤器](./Redis/Redis安装布隆过滤器.md)
+    - [Redis安装布隆过滤器(Bloom Filter)](./Redis/Redis安装布隆过滤器(Bloom Filter).md)
     - [QuickList存储结构](./Redis/QuickList存储结构.md)
     - [SortSet存储结构](./Redis/SortSet存储结构.md)
     - [Redis单线程VS多线程](./Redis/Redis单线程VS多线程.md)
