@@ -58,12 +58,32 @@
 - **环境搭建**
   - [RabbitMQ 的安装与配置](https://github.com/zhu-rundong/blog/issues/33)
 
-
-
 ## # Redis
-- **环境搭建**
-  - [centos7 安装 redis-6.0.9](https://github.com/zhu-rundong/blog/issues/7)
-  - [Redis Desktop Manager 连接 vmware 虚拟机中的 Redis 服务](https://github.com/zhu-rundong/blog/issues/8)
+- **Redis命令**
+    - [String](./Redis/String.md)
+    - [List](./Redis/List.md)
+    - [Hash](./Redis/Hash.md)
+    - [Set](./Redis/Set.md)
+    - [SortedSet](./Redis/SortedSet.md)
+    
+- **知识梳理**
+    - [centos7安装redis-6.0.9](./Redis/centos7安装redis-6.0.9.md)
+    - [centos7安装redis-6.0.9（多个Redis实例）](./Redis/centos7安装redis-6.0.9（多个Redis实例）.md)
+    - [Redis Desktop Manager 连接vmware虚拟机中的Redis服务](./Redis/Redis Desktop Manager 连接vmware虚拟机中的Redis服务.md)
+    - [Redis安装布隆过滤器(Bloom Filter)](./Redis/Redis安装布隆过滤器(Bloom Filter).md)
+    - [QuickList存储结构](./Redis/QuickList存储结构.md)
+    - [SortSet存储结构](./Redis/SortSet存储结构.md)
+    - [Redis单线程VS多线程](./Redis/Redis单线程VS多线程.md)
+    - [Redis分布式锁](./Redis/Redis分布式锁.md)
+    - [布隆过滤器](./Redis/布隆过滤器.md)
+    - [缓存穿透](./Redis/缓存穿透.md)
+    - [缓存击穿](./Redis/缓存击穿.md)
+    - [缓存雪崩](./Redis/缓存雪崩.md)
+    - 
+    
+- **问题总结**
+    - [Linux安装Redis6.0.9执行.install_server.sh报错](./Redis/Linux安装Redis6.0.9执行.install_server.sh报错.md)
+    - 
 
 
 ##  # Soul 源码阅读
