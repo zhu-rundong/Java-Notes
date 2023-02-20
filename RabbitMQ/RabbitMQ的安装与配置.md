@@ -22,7 +22,7 @@ RabbitMQ 比 Kafka 可靠，Kafka 更适合 IO 高吞吐的处理，一般应用
 >
 >CentOS 版本：7.8
 
-RabbitMQ 由 Erlang 语言开发，所以我们需要下载对应的依赖包，一定要注意[RabbitMQ的版本和Erlang的版本对应](https://www.rabbitmq.com/which-erlang.html)。安装使用的 rpm 如下（也可根据[下载地址](https://www.rabbitmq.com/download.html)自行下载）：
+RabbitMQ 由 Erlang 语言开发，所以我们需要下载对应的依赖包，一定要注意[RabbitMQ的版本和Erlang的版本对应](https://www.rabbitmq.com/which-erlang.html)。安装使用的 rpm 如下（也可根据文章最下方的下载地址自行下载）：
 
 ![image-20210605222435540](assets/20210605222435.png)
 
