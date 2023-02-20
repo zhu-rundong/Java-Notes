@@ -1,13 +1,5 @@
 # 目录
 
-
-## # Demo
-
-- [Spring Boot + MyBatis-plus 实现多数据源动态切换 & 读写分离（多数据源轮循）](https://github.com/zhu-rundong/blog/issues/3)
-- [Spring Boot + MyBatis-plus + shardingsphere 实现读写分离](https://github.com/zhu-rundong/blog/issues/4)
-- [Spring Boot + MyBatis-plus + shardingsphere 实现水平分库分表](https://github.com/zhu-rundong/blog/issues/5)
-- [Spring Boot + MyBatis-plus + shardingsphere 整合分布式事务(基于Atomikos XA) ](https://github.com/zhu-rundong/blog/issues/6)
-
 ## # Docker
 
 - **知识梳理**
@@ -44,7 +36,7 @@
 
 ## # Kafka
 
-- **环境搭建**
+- **知识梳理**
   - [Linux下安装Kafka](https://github.com/zhu-rundong/blog/issues/43)
   - [Windows 本机连不上虚拟机的kafka解决方案](https://github.com/zhu-rundong/blog/issues/44)
   
@@ -55,8 +47,9 @@
 
 
 ## # RabbitMQ
-- **环境搭建**
-  - [RabbitMQ 的安装与配置](https://github.com/zhu-rundong/blog/issues/33)
+- **知识梳理**
+  - [RabbitMQ的安装与配置](RabbitMQ/RabbitMQ的安装与配置.md)
+  - [RabbitMQ之AMQP协议](RabbitMQ/RabbitMQ之AMQP协议.md)
 
 ## # Redis
 - **Redis命令**
@@ -109,6 +102,6 @@
 
 ##  # Zookeeper
 
-- **环境搭建**
+- **知识梳理**
   - [Linux下安装Zookeeper](https://github.com/zhu-rundong/blog/issues/42)
 
