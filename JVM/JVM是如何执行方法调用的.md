@@ -418,8 +418,3 @@ JVM 中虚方法调用包括 invokevirtual 指令和 invokeinterface 指令。�
 
 其实是不能的，查虚方法表是动态绑定的一种优化手段，实际上仅存在于解释执行中，或者即时编译代码的最坏情况中。这是因为即时编译还拥有另外两种性能更好的优化手段：内联缓存（inlining cache）和方法内联（method inlining）。
 
-## 参考资料
-
-1. [《深入拆解Java虚拟机》郑雨迪](https://time.geekbang.org/column/intro/108)
-2. 《深入理解Java虚拟机：JVM高级特性与最佳实践（第3版）周志明》
-3. https://www.cnblogs.com/heihaozi/p/14142671.html

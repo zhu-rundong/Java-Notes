@@ -91,6 +91,3 @@ Java 编译器在编译代码时，会复制finally代码块的内容，然后�
 
 catch 里抛的异常会被 finally 捕获了，再执行完 finally 代码后重新抛出该异常。由于finally代码块有个 return 语句，在重新抛出前就返回了。
 
-## 参考资料
-
-1. [《深入拆解Java虚拟机》郑雨迪](https://time.geekbang.org/column/intro/108)

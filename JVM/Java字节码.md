@@ -232,6 +232,3 @@ Code:
 
 ​		![image-20210808215247224](assets/image-20210808215247224.png)
 
-## 参考资料
-
-1. [《深入拆解Java虚拟机》郑雨迪](https://time.geekbang.org/column/intro/108)

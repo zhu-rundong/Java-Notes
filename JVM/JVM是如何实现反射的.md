@@ -180,6 +180,3 @@ public class JavaReflectionDemo {
 
 至于方法内联，接下来文章中再详细解释。
 
-## 参考资料
-
-1. [《深入拆解Java虚拟机》郑雨迪](https://time.geekbang.org/column/intro/108)

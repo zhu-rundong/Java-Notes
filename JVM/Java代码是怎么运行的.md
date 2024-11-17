@@ -111,7 +111,3 @@ HotSpot 使用第二种 ： 基于计数器的热点探测方法，并且 HotSpo
 
    用来统计方法中循环体代码执行的次数（字节码中遇到控制流向后跳转的指令称为**回边**），目的是为了触发栈上替换。
 
-## 参考资料
-
-1. [《深入拆解Java虚拟机》郑雨迪](https://time.geekbang.org/column/intro/108)
-2. https://www.cnblogs.com/chanshuyi/p/jvm_serial_03_the_nature_of_jvm.html
