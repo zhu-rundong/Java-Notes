@@ -94,11 +94,23 @@ Java 9 引入了模块系统，并且略微更改了上述的类加载器。扩�
 
 双亲委派保证了类加载器，自下而上的委派，又自上而下的加载，确保每一个类在各个类加载器中都是同一个类。例如类`java.lang.Object`，它存放在`rt.jar`之中，无论哪个类加载器要加载这个类，最终都是委派给启动类加载器加载，因此 Object 类在程序的各种类加载器环境中都是同一个类。
 
+#### 打破双亲委派
+
+JDK中的基础类作为API被用户调用，但是也存在API调用用户代码的情况，例如：SPI（Service Provider Interface）代码，比如：数据库驱动、common-logging日志接口实现等。
+
+以Driver驱动为例，driver接口定义在JDK中，其实现**`由各个数据库的服务商来提供，由系统类加载器来加载`**。这个时候就需要**`启动类加载器`**来委托**`子类`**去加载Driver的实现，这就破坏了双亲委派（DriverManager.getConnection(url,user,password)打破了双亲委派）。
+
+#### 如何破坏双亲委派
+
+1. 重写ClassLoader的loadClass方法
+2. SPI，父类委托子类加载器加载class
+3. 热部署和不停机更新用的到OSGI技术
+
 ### **自定义类加载器**
 
 除了由 Java 核心类库提供的类加载器外，还可以自定义的类加载器来加载其他格式的类，对加载方式、加载数据的格式进行自定义处理，只要能通过`classloader`返回一个Class实例即可。这就大大增强了加载器灵活性。比如我们试着实现一个可以用来处理简单加密的字节码的类加载器，用来保护我们的class字节码文件不被使用者直接拿来破解。
 
-例如：[XlassFileClassLoader](https://github.com/zhu-rundong/learning/blob/main/jvm/src/main/java/com/zrd/jvm/XlassFileClassLoader.java)
+例如：[XlassFileClassLoader](https://github.com/zhu-rundong/java-demo/blob/master/jvm/src/main/java/com/zrd/jvm/XlassFileClassLoader.java)
 
 ### 添加引用类方法
 
@@ -107,7 +119,7 @@ Java 9 引入了模块系统，并且略微更改了上述的类加载器。扩�
 3. 自定义 ClassLoader 加载
 4. 拿到当前执行类的 ClassLoader，反射调用 addUrl 方法添加 Jar 或路径(JDK9 无效)
 
-    例如：[JvmAppDynamicLoadFile](https://github.com/zhu-rundong/learning/blob/main/jvm/src/main/java/com/zrd/jvm/JvmAppDynamicLoadFile.java)
+    例如：[JvmAppDynamicLoadFile](https://github.com/zhu-rundong/java-demo/blob/master/jvm/src/main/java/com/zrd/jvm/JvmAppDynamicLoadFile.java)
 
 ## 类加载时机(了解)
 
