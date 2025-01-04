@@ -69,6 +69,14 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 	at com.zrd.rel.ReferenceDemo.main(ReferenceDemo.java:16)
 ```
 
+**应用场景：实现内存敏感的高速缓存**
+
+例如：应用读取大量的本地文件，如果每次都从硬盘读取会严重影响性能，如果一次性加载到内存，内存可能会溢出。此时，可以使用软引用来解决这个问题，使用一个HashMap来保存文件路径和文件对象管理的软引用之间的映射关系。内存不足时，JVM会自动回收缓存文件对象的占用空间，有效地避免了OOM问题。
+
+```java
+Map<String, SoftReference<Bitmap>> fileCache = new HashMap<String,SoftReference<Bitmap>>
+```
+
 ## 弱引用（Weak Reference）
 
 弱引用是一种比强引用更弱的引用类型，它比软引用的生存期更短，弱引用需要用`java.lang.ref.WeakReference`类来实现。对于只有弱引用的对象来说，只要垃圾回收机制一运行，不管JVM的内存空间是否足够，都会回收该对象占用的内存。 
