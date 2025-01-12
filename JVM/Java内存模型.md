@@ -2,7 +2,7 @@
 
 ## 什么是 Java 内存模型
 
-Java 内存模型（Java Memory Model，JMM）是一个抽象的概念。从 JDK5 开始，Java 使用新的 JSR-133 内存模型，在 JSR-133: Java Memory Model and Thread Specification 中描述了，JMM 是和多线程相关的，它是一组规则或规范。这个规范定义了多线程之间共享变量的可见性以及如何在需要的时候对共享变量进行同步。
+Java 内存模型（Java Memory Model，JMM）是一个抽象的概念。从 JDK5 开始，Java 使用新的 JSR-133 内存模型，在 JSR-133: Java Memory Model and Thread Specification 中描述了，JMM 是和多线程相关的，它是一组规则或规范。这个规范**定义了多线程之间共享变量的可见性以及如何在需要的时候对共享变量进行同步**。
 
 这样的好处是屏蔽了各种硬件和操作系统的内存访问差异，实现 Java 并发程序真正的跨平台。
 
@@ -26,7 +26,7 @@ Java 内存模型（Java Memory Model，JMM）是一个抽象的概念。从 JDK
 
 **Java 的并发采用的是共享内存模型。**
 
-## Java 内存模型
+## Java内存模型
 
 ### 主内存与本地内存
 
@@ -61,7 +61,7 @@ JMM 规定了所有的共享变量都存储在主内存（Main Memory）中，�
 
 ![image-20210620214543261](assets/20210620214543.png)
 
-上述的1属于编译器重排序，2和3属于处理器重排序。由于后两种涉及具体的体系架构，我们暂且放到一边。下面我们主要来看一下编译器优化的重排序是怎么一回事。
+上述的1属于编译器重排序，2和3属于处理器重排序。后两种涉及具体的体系架构，可以暂且放到一边。下面主要来看一下编译器优化的重排序。
 
 #### 数据依赖性
 
@@ -75,7 +75,7 @@ JMM 规定了所有的共享变量都存储在主内存（Main Memory）中，�
 
 #### as-if-serial
 
-在单线程情况下，要给程序一个顺序执行的假象，即经过重排序的执行结果要与顺序执行的结果保持一致。即时编译器和处理器都必须遵守 as-if-serial。
+在单线程情况下，经过重排序的执行结果要与顺序执行的结果保持一致。即时编译器和处理器都必须遵守 as-if-serial。
 
 为了遵守 as-if-serial 语义，编译器和处理器不会对存在数据依赖关系的操作做重排序，因为这种重排序会改变执行结果。但是，如果操作之间不存在数据依赖关系，这些操作就可能被编译器和处理器重排序。
 
@@ -103,11 +103,11 @@ happens-before 规则定义：
 
 1. **监视器锁规则**（Monitor Lock Rule）: 对同一把锁的，解锁操作 happens-before 之后（这里指时间顺序先后）加锁操作。
 2. **volatile变量规则**（Volatile Variable Rule）：volatile 字段的写操作 happens-before 之后（这里指时间顺序先后）对同一字段的读操作。
-3. **线程启动规则**（Thread Start Rule）： Thread.start() 方法 happens-before 该线程的第一个操作
-4. **线程终止规则**（Thread Termination Rule）：线程的最后一个操作 happens-before 它的终止事件（即其他线程通过 Thread.isAlive() 或 Thread.join() 判断该线程是否中止）。
-5. **线程中断规则**（Thread Interruption Rule）：对线程 interrupt() 方法的调用 happens-before 被中断线程所收到的中断事件（即被中断线程的 InterruptedException 异常，或者第三个线程针对被中断线程的 Thread.interrupted 或者 Thread.isInterrupted 调用）。
-6. **对象终结规则**（Finalizer Rule）：一个对象的初始化完成 happens-before 于它的`finalize()`方法的开始。
-7. **传递性**（Transitivity）：A在B之前发生，B在C之前发生，那么A在C之前发生。
+3. **传递性**（Transitivity）：A在B之前发生，B在C之前发生，那么A在C之前发生。
+4. **线程启动规则**（Thread Start Rule）： Thread.start() 方法 happens-before 该线程的第一个操作
+5. **线程终止规则**（Thread Termination Rule）：线程的最后一个操作 happens-before 它的终止事件（即其他线程通过 Thread.isAlive() 或 Thread.join() 判断该线程是否中止）。
+6. **线程中断规则**（Thread Interruption Rule）：对线程 interrupt() 方法的调用 happens-before 被中断线程所收到的中断事件（即被中断线程的 InterruptedException 异常，或者第三个线程针对被中断线程的 Thread.interrupted 或者 Thread.isInterrupted 调用）。
+7. **对象终结规则**（Finalizer Rule）：一个对象的初始化完成 happens-before 于它的`finalize()`方法的开始。
 
 ~~~java
 int a=0, b=0;
@@ -161,7 +161,7 @@ volatile 变量，对该变量的读/写就具有原子性。如果是多个 vol
 
 #### 禁止指令重排
 
-Java 内存模型是通过内存屏障（memory barrier）来禁止重排序的。
+Java 内存模型是通过内存屏障（memory barrier）来禁止重排序的。内存屏障（Memory Barrier）是一种CPU指令，用于控制特定条件下的重排序和内存可见性问题。
 
 对于 volatile 变量，编译器在生成字节码时，会在指令序列中插入内存屏障来禁止特定类型的处理器重排序
 
@@ -174,7 +174,16 @@ Java 内存模型是通过内存屏障（memory barrier）来禁止重排序的�
 
 ![image-20241117104036881](assets/image-20241117104036881.png)
 
-#### volatile 的应用
+#### volatile的缺陷
+
+**存在原子性的问题：虽然volatile可以保证可见性，但是不能满足原子性。**
+
+#### volatile的应用
+
+**volatile适合使用场景：**
+
+- 共享变量独立于其他变量和自己之前的值，这类变量单独使用的时候适合用volatile。例如++和--，就不行
+- 共享变量没有包含在有其他变量的不等式中
 
 **状态标志**
 
@@ -232,23 +241,30 @@ ctorInstance(memory);  //2：初始化对象
 
 ### 原子性、可见性与有序性
 
-Java 内存模型是围绕着在并发过程中如何处理原子性、可见性和有序性这三个特征来建立的，我们逐个来看一下哪些操作实现了这三个特性。
+Java 内存模型是围绕着在并发过程中如何处理原子性、可见性和有序性这三个特征来建立的。
 
 #### 原子性（Atomicity）
 
-Java 中，基本数据类型的访问、读写都是具备原子性的（例外就是 long 和 double 的非原子性协定，步过不必在意这些几乎不会发生的例外情况）。
+**原子性就是一个操作或多个操作，要么全部执行，要么就都不执。执行过程中，不能被打断**
+
+Java 中，基本数据类型的访问、读写都是具备原子性的（例外就是 long 和 double 的非原子性协定，不过不必在意这些几乎不会发生的例外情况）。
 
 Java内存模型还提供了 lock 和 unlock 操作来满足一个更大范围的原子性保证的需求，尽管虚拟机未把 lock 和 unlock 操作直接开放给用户使用，但是却提供了更高层次的字节码指令 monitorenter 和 monitorexit 来隐式地使用这两个操作。这两个字节码指令反映到Java 代码中就是同步块——synchronized 关键字，因此在synchronized块之间的操作也具备原子性。
 
 #### 可见性（Visibility）
 
-可见性就是指当一个线程修改了共享变量的值时，其他线程能够立即得知这个修改。上文中已对 volatile 做了讲解。除了 volatile 之外，Java 还有两个关键字能实现可见性，它们是 synchronized 和 final。
+**可见性就是指当一个线程修改了共享变量的值时，其他线程能够立即得知这个修改。**为什么会出现不可见问题呢？因为Java内存模型（JMM）。
 
-同步块的可见性是由`对一个变量执行unlock操作之前，必须先把此变量同步回主内存中（执行store、write操作）`这条规则获得的（下一篇会详细讲解 synchronized）。
+除了 volatile 之外，Java 还有两个关键字能实现可见性，它们是 synchronized 和 final。
 
-final 关键字的可见性是指：被 final 修饰的字段在构造器中一旦被初始化完 成，并且构造器没有把`this`的引用传递出去（this引用逃逸是一件很危险的事情，其他线程有可能通过这个引用访问到“初始化了一半”的对象），那么在其他线程中就能看见 final 字段的值。
+- 同步块的可见性是由`对一个变量执行unlock操作之前，必须先把此变量同步回主内存中（执行store、write操作）`这条规则获得的。
+
+- final 关键字的可见性是指：被 final 修饰的字段在构造器中一旦被初始化完成，并且构造器没有把`this`的引用传递出去（this引用逃逸是一件很危险的事情，其他线程有可能通过这个引用访问到“初始化了一半”的对象），那么在其他线程中就能看见 final 字段的值。
+
 
 #### 有序性（Ordering）
+
+**有序性就是指程序代码按照先后顺序执行。**
 
 Java 程序中天然的有序性可以总结为一句话：如果在本线程内观察，所有的操作都是有序的；如果在一个线程中观察另一个线程，所有的操作都是无序的。前半句是指`线程内似表现为串行的语义（Within-Thread As-If-Serial Semantics）`，后半句是指`指令重排序`现象和`工作内存与主内存同步延迟`现象。
 
