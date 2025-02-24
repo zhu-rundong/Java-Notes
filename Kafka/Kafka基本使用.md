@@ -77,7 +77,7 @@ server.properties 的配置路径是一个强制的参数，-daemon 表示以后
 
 ## 创建主题
 
-创建一个名字为“test”的Topic，这个topic只有一个partition，并且备份因子也设置为1。
+创建一个名字为“test”的 Topic，这个 topic 只有一个 partition，并且备份因子也设置为 1。
 
 ```shell
 ./bin/kafka-topics.sh --create --zookeeper 192.168.78.100:2181 --replication-factor 1 --partitions 1 --topic test
@@ -85,7 +85,7 @@ server.properties 的配置路径是一个强制的参数，-daemon 表示以后
 
 ![image-20250216210835617](assets/image-20250216210835617.png)
 
-**查看kafka中目前存在的topic**
+**查看 kafka 中目前存在的 topic**
 
 ```shell
 ./bin/kafka-topics.sh --list --zookeeper 192.168.78.100:2181
@@ -93,7 +93,7 @@ server.properties 的配置路径是一个强制的参数，-daemon 表示以后
 
 ![image-20250216211017418](assets/image-20250216211017418.png)
 
-除了我们通过手工的方式创建Topic，当producer发布一个消息到某个指定的Topic，这个**Topic如果不存在，就自动创建**。
+除了我们通过手工的方式创建 Topic，当 producer 发布一个消息到某个指定的 Topic，这个 **Topic 如果不存在，就自动创建**。
 
 ## 删除主题
 
