@@ -95,6 +95,14 @@ server.properties 的配置路径是一个强制的参数，-daemon 表示以后
 
 除了我们通过手工的方式创建 Topic，当 producer 发布一个消息到某个指定的 Topic，这个 **Topic 如果不存在，就自动创建**。
 
+### 创建多个分区的主题
+
+```shell
+./bin/kafka-topics.sh --create --zookeeper 192.168.78.100:2181 --replication-factor 1 --partitions 2 --topic test1
+```
+
+
+
 ## 删除主题
 
 ```shell
@@ -103,21 +111,78 @@ server.properties 的配置路径是一个强制的参数，-daemon 表示以后
 
 ![image-20250216211357690](assets/image-20250216211357690.png)
 
+## 发送消息
 
+```shell
+./bin/kafka-console-producer.sh --broker-list 192.168.78.100:9092 --topic test
+```
 
+## 消费消息
 
+**kafka 默认消费最新的消息**
 
+```shell
+./bin/kafka-console-consumer.sh --bootstrap-server 192.168.78.100:9092 --topic test   
+```
 
+如果想要消费之前的消息可以通过 **`--from-beginning`** 参数指定，如下命令：
 
+```shell
+./bin/kafka-console-consumer.sh --bootstrap-server 192.168.78.100:9092 --from-beginning --topic test
+```
 
+### 消费多主题
 
+```shell
+./bin/kafka-console-consumer.sh --bootstrap-server 192.168.78.100:9092 --whitelist "test|test-1"
+```
 
+### 单播消费
 
+一条消息只能被某一个消费者消费的模式，类似 queue 模式，只需让所有消费者在同一个消费组里即可。
 
+例如：分别在两个客户端执行如下消费命令，然后往主题里发送消息，结果只有一个客户端能收到消息
 
+```shell
+./bin/kafka-console-consumer.sh --bootstrap-server 192.168.78.100:9092  --consumer-property group.id=testGroup-1 --topic test
+```
 
+### 多播消费
 
+一条消息能被多个消费者消费的模式，类似 publish-subscribe 模式费，针对 Kafka **同一条消息只能被同一个消费组下的某一个消费者消费** 的特性，要实现多播只要保证这些消费者属于不同的消费组即可。
 
+例如：再增加一个消费者，该消费者属于 testGroup-1 消费组，结果两个客户端都能收到消息
 
+```shell
+./bin/kafka-console-consumer.sh --bootstrap-server 192.168.78.100:9092 --consumer-property group.id=testGroup-2 --topic test
+```
 
+### 查看消费组名
 
+```shell
+./bin/kafka-consumer-groups.sh --bootstrap-server 192.168.78.100:9092 --list
+```
+
+### 查看消费组的消费偏移量
+
+```shell
+./bin/kafka-consumer-groups.sh --bootstrap-server 192.168.78.100:9092 --describe --group testGroup
+```
+
+![image-20250301171127515](assets/image-20250301171127515.png)
+
+- **current-offset：** 当前消费组的已消费偏移量
+- **log-end-offset：** 主题对应分区消息的结束偏移量(HW)
+- **lag：** 当前消费组未消费的消息数
+
+## 查看 topic 的情况                
+
+```shell
+ ./bin/kafka-topics.sh --describe --zookeeper 192.168.78.100:2181 --topic test
+```
+
+![image-20250301175347727](assets/image-20250301175347727.png)
+
+- leader：负责给定 partition 的所有读写请求
+- replicas：表示某个 partition 在哪几个 broker 上存在备份。不管这个节点是不是 leader，甚至这个节点挂了，也会列出
+- isr：replicas 的一个子集，它只列出当前还存活着的，并且 **已同步备份** 了该 partition 的节点

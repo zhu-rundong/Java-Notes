@@ -62,6 +62,8 @@ bin/kafka-server-start.sh config/server.properties &
 
 # 停止 kafka
 bin/kafka-server-stop.sh
+
+#配置过环境变量，可以直接使用kafka命令，不需要进入到安装目录
 ```
 
 ## 查看是否启动成功
