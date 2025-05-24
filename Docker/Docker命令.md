@@ -140,8 +140,8 @@ docker run -it nginx:latest /bin/bash 创建并进入容器
 docker run -d -p 主机(宿主)端口:容器端口 image_name:tag(版本)
 
 -d: 后台运行容器
--p: 指定端口映射，格式为：主机(宿主)端口:容器端口
--P: 随机分配主机端口
+-p（小写）: 指定端口映射，格式为：主机(宿主)端口:容器端口
+-P（大写）: 随机分配主机端口
 
 例:
 docker run -d -p 80:80 nginx:latest
@@ -203,7 +203,7 @@ docker kill container_name/container_id
 #### 删除容器
 
 ```shell
-docker rm container_name/container_id ......
+docker rm container_name/container_id ......（删除多个使用空格隔开）
 
 -f  强制删除
 
