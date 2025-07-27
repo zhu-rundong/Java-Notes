@@ -320,23 +320,350 @@ explain select * from tb_seckill_goods where cost_price>100;
 
 ### 索引优化
 
+[索引优化](MySQL索引.md#索引创建原则)
 
+### Limit 优化
 
+如果预计 SELECT 语句的查询结果是一条，最好使用 **LIMIT 1**，可以停止全表扫描。
 
+处理分页会使用到 LIMIT ，当翻页到非常靠后的页面的时候，偏移量会非常大，这时 LIMIT 的效率会非常差。
 
+LIMIT 的优化问题，其实是 `OFFSET` 的问题，它会导致 MySQL 扫描大量不需要的行然后再抛弃掉。
 
+**解决方案：单表分页时，使用自增主键排序之后，先使用 where 条件 id > offset 值，limit 后面只写 rows**
 
+```sql
+select * from (select * from tuser2 where id > 1000000 and id < 1000500 ORDER BY id) t limit 0, 20
+```
 
+### 子查询优化
 
+执行子查询时，MYSQL 需要创建临时表，查询完毕后再删除这些临时表，所以子查询的速度会受到一定的影响。这多了一个创建临时表和销毁表的过程。
 
+select goods_id, goods_name from goods where goods_id = (select max(goods_id)
+from goods);
 
+```sql
+-- 把内层查询结果当作外层查询的比较条件的
+select goods_id,goods_name from goods where goods_id = (select max(goods_id) from goods);
+```
 
+**优化方式：可以使用连接查询（JOIN）代替子查询，连接查询时不需要建立临时表，其速度比子查询快。**
 
+### 其他查询优化
 
+- **小表驱动大表：** 使用 left join 时，以小表关联大表，因为使用 join 的话，**第一张表是必须全扫描的**，以少关联多就可以减少这个扫描次数。
+- **JOIN 两张表的关联字段最好都建立索引，而且最好字段类型一致。**
+- **避免全表扫描：** 注意索引失效的口诀，避免索引失效导致的全表扫描。
+- **避免 MySQL 放弃索引：** 如果 MySQL 估计使用全表扫描要比使用索引快，则不使用索引。最典型场景：查询数据量到一定阈值的时候出现的索引失效，数据量达到一定阈值使用索引不如全表扫描来的更快。
+- **WHERE 条件中尽量不要使用 not in 语句，建议使用 not exists**
+- **利用慢查询日志、explain 执行计划查询、show profile 查看 SQL 执行时的资源使用情况**
 
+### SQL 语句性能分析
 
+#### 什么是 Profile
 
+Query Profiler 是 MySQL 自带的一种 **Query 诊断分析工具**，通过它可以分析出一条 SQL 语句的硬件性能瓶颈在什么地方。通常我们是使用的 explain，以及 slow query log 都无法做到精确分析，但是 Query Profiler 却可以定位出一条 SQL 语句执行的各种资源消耗情况，比如 CPU，IO 等，以及该 SQL 执行所耗费的时间等。
 
+该工具只有在 **MySQL 5.0.37 以及以上版本中才有实现**。**默认的情况下，MySQL 的该功能没有打开，需要自己手动启动。**
 
+#### 开启 Profile 功能
 
+**查看是否开启了 Profile 功能**
+
+```sql
+select @@profiling;
+-- 或者
+show variables like '%profil%';
+```
+
+**开启 profile 功能**
+
+```sql
+-- 1是开启、0是关闭
+set profiling=1;
+```
+
+#### 基本使用
+
+```sql
+SHOW PROFILE [type [, type] ... ]
+	[FOR QUERY n]
+	[LIMIT row_count [OFFSET offset]]
+type: {
+      ALL
+    | BLOCK IO
+    | CONTEXT SWITCHES
+    | CPU
+    | IPC
+    | MEMORY
+    | PAGE FAULTS
+    | SOURCE
+    | SWAPS
+}
+```
+
+show profile 和 show profiles 语句可以展示当前会话(退出 session 后, profiling 重置为 0) 中执行语句的资源使用情况。
+
+- show profiles：以列表形式显示最近发送到服务器上执行的语句的资源使用情况，显示的记录数由变量 `profiling_history_size` 控制, 默认 15 条
+- show profile: 展示最近一条语句执行的详细资源占用信息, 默认显示 Status 和 Duration 两列
+- show profile: 还可根据 show profiles 列表中的 Query_ID , 选择显示某条记录的性能分析信息
+
+```sql
+-- 查看某条SQL的性能分析信息
+show profile for query 1;
+-- 查看某条SQL的具体某个指标的性能分析
+show profile cpu for query 1;
+```
+
+**type 是可选的，取值范围可以如下：**
+
+- ALL：显示所有性能信息
+- BLOCK IO：显示块 IO 操作的次数
+- CONTEXT：SWITCHES 显示上下文切换次数，不管是主动还是被动
+- CPU：显示用户 CPU 时间、系统 CPU 时间
+- IPC：显示发送和接收的消息数量
+- MEMORY：[暂未实现]
+- PAGE FAULTS：显示页错误数量
+- SOURCE：显示源码中的函数名称与位置
+- SWAPS：显示 SWAP 的次数
+
+## 数据库优化
+
+### 慢查询日志
+
+MySQL 的慢查询日志功能默认是关闭的，需要手动开启。
+
+#### 开启慢查询日志
+
+**查看是否开启慢查询日志**
+
+```sql
+show variables like '%slow_query%';
+show variables like 'long_query_time%';
+```
+
+![image-20250727154746657](assets/image-20250727154746657.png)
+
+- **slow_query_log：** 是否开启慢查询日志，1 为开启，0 为关闭
+- **log-slow-queries：** 旧版（5.6 以下）MySQL 数据库慢查询日志存储路径。
+- **slow-query-log-file：** 新版（5.6 及以上）MySQL 数据库慢查询日志存储路径。不设置该参数，系统则会默认给一个文件 host_name-slow.log
+- **long_query_time：** 慢查询阈值，当查询时间多于设定的阈值时，记录日志，单位秒
+
+**开启慢查询功能**
+
+```sql
+# 开启慢查询日志
+set global slow_query_log=on;
+# 大于1秒钟的数据记录到慢日志中，如果设置为默认0，则会有大量的信息存储在磁盘中，磁盘很容易满掉
+# 如果设置不生效，建议配置在my.cnf配置文件中
+set global long_query_time=1;
+# 记录没有索引的查询。
+set global log_queries_not_using_indexes=on;
+```
+
+#### 慢查询日志格式
+
+```sql
+# Time: 2025-07-27T08:32:44.023309Z
+# User@Host: root[root] @ [172.26.233.201] Id: 1243
+# Query_time: 218.295526 Lock_time: 0.000126 Rows_sent: 10959
+Rows_examined: 10929597
+use hero_all;
+SET timestamp=1627374764;
+# 慢查询SQL语句
+select tk.id,ts.* from tb_seckill_goods ts LEFT JOIN tb_sku tk ON tk.id=ts.id where ts.id>100 order by ts.price;
+```
+
+**日志解析：**
+
+- 第一行：SQL 查询执行的具体时间
+
+- 第二行：执行 SQL 查询的连接信息，用户和连接 IP
+
+- 第三行：记录了一些我们比较有用的信息，如下解析：
+
+  - Query_time, 这条 SQL 执行的时间, 越长则越慢
+  - Lock_time, 在 MySQL 服务器阶段(不是在存储引擎阶段)等待表锁时间
+  - Rows_sent, 查询返回的行数
+  - Rows_examined, 查询检查的行数，越长就当然越费时间
+- 第四行：设置时间戳，没有实际意义，只是和第一行对应执行时间。
+- 第五行及后面所有行是执行的 SQL 语句，SQL 可能会很长。截止到下一个# Time: 之前
+
+#### 分析慢查询日志工具
+
+使用 mysqldumpslow 工具，mysqldumpslow 是 MySQL 自带的慢查询日志工具。可以使用 mysqldumpslow 工具搜索慢查询日志中的 SQL 语句。
+
+```mysql
+-- 得到按照时间排序的前 10 条里面含有左连接的查询语句：
+[root@localhost mysql]# mysqldumpslow -s t -t 10 -g "left join" /var/lib/mysql/slow.log
+```
+
+**常用参数说明：**
+
+- s ：是表示按照何种方式排序
+  - al 平均锁定时间
+  - ar 平均返回记录时间
+  - t 平均查询时间（默认）
+  - c 计数
+  - l 锁定时间
+  - r 返回记录
+  - t 查询时间
+
+- -t ：是 top n 的意思，即为返回前面多少条的数据
+
+- -g ：后边可以写一个正则匹配模式，大小写不敏感的
+
+### 连接数 max_connections
+
+**MySQL 同时连接客户端的最大数量，默认值 151，最小值 1。**
+
+**连接数导致问题：** ERROR 1040，TooManyConnections 原因如下:
+
+1. MySQL 的 max_connection 配置少了
+2. 访问确实太高，MySQL 有点扛不住了，考虑扩容
+3. 连接池配置有误，MaxActive 为 0
+
+```mysql
+# 查看 max_connections
+show global variables like 'max_connections'
+# 设置 max_connections（立即生效重启后失效）
+set global max_connections = 800;
+# 这台MySQL服务器最大连接数是256，然后查询一下服务器使用过的最大连接数：
+show global status like 'Max_used_connections';
+```
+
+**比较理想的设置是：** Max_used_connections / max_connections * 100% ≈ 85%，最大连接数占上限连接数的 85%左右，如果发现比例在 10%以下，MySQL 服务器连接数上限设置的过高了。
+
+#### Max_connection 可以无限大吗
+
+MySQL 支持的最大连接数取决于如下几个主要因素：
+
+- 可使用内存
+- 每个连接占用的内存
+- 连接响应时间
+
+#### Max_connection 大了会影响系统的吞吐能力？
+
+一般情况下，Linux 操作系统支持最大连接数范围 500-1000 之间，最大链接数上限 10w。如果想设置为最大，要么得有足够的资源，要么就是可以接收很长的响应时间。
+
+**建议设置：最大连接数占上限连接数的 85%左右，如果发现比例在 10%以下，MySQL 服务器连接数上限设置的过高了。**
+
+### 线程使用情况
+
+如果我们在 MySQL 服务器配置文件中设置了 thread_cache_size，当客户端断开之后，服务器处理此客户的线程将会缓存起来以响应下一个客户而不是销毁（前提是缓存数未达上限）。
+
+服务器线程缓存 thread_cache_size 没有进行设置或者设置过小，MySQL 服务器一直在创建线程销毁线程。增加这个值可以改善系统性能（可以使得 RT 更趋于平稳）。
+
+Threads_created 表示创建过的线程数，如果发现 Threads_created 值过大的话，表明 MySQL 服务器一直在创建线程，这也是比较耗资源，可以适当增加配置文件中 thread_cache_size 值。
+
+**查询服务器 thread_cache_size 配置：**
+
+```mysql
+# 查询线程使用情况
+show global status like 'Thread%';
+# 查询线程缓存
+show variables like 'thread_cache_size';
+# 增加thread_cache_size的值
+set global thread_cache_size = 64;
+```
+
+**根据物理内存建议设置规则如下：**
+
+- 1G ---> 8
+- 2G ---> 16
+- 3G ---> 32
+- 大于 3G ---> 64
+
+### 结构优化
+
+#### 分表
+
+对于字段较多的表，如果有些字段的使用频率很低，可以将这些字段分离出来形成新表。因为当一个表的数据量很大时，会由于使用频率低的字段的存在而变慢。
+
+#### 增加中间表
+
+对于需要经常联合查询的表，可以建立中间表以提高查询效率。通过建立中间表，将需要通过联合查询的数据插入到中间表中，然后将原来的联合查询改为对中间表的查询。
+
+通常都是在统计当中使用，每次统计报表的时候都是离线统计，后台有有一个线程对你这统计查询结果放入一个中间表，然后你对这个中间表查询
+
+#### 增加冗余字段
+
+设计数据表时应尽量遵循关系数 **据库范式的规约**，尽可能的减少冗余字段，让数据库设计看起来精致、优雅。但是合理的加入冗余字段可以提高查询速度。
+
+表的规范化程度越高，表和表之间的关系越多，需要连接查询的情况也就越多，性能也就越差。
+
+**注意：冗余字段的值在一个表中修改了，就要想办法在其他表中更新，否则就会导致数据不一致的问题。**
+
+## 服务器层面优化
+
+### 缓冲区优化
+
+将数据保存在内存中，保证从内存读取数据。设置足够大的 `innodb_buffer_pool_size` ，将数据读取到内存中，推荐设置为物理内存的 50%~80%。
+
+怎样确定足够大，数据是从内存读取而不是硬盘 IO 读取？
+
+```mysql
+show global status like 'innodb_buffer_pool_pages%';
+```
+
+![image-20250727161947825](assets/image-20250727161947825.png)
+
+### 降低磁盘写入次数
+
+- 对于生产环境来说，很多日志是不需要开启的，比如：通用查询日志、慢查询日志、错误日志
+- 使用足够大的写入缓存
+- 设置合适日志落盘策略
+
+### MySQL 数据库配置优化
+
+MySQL 的配置参数都在 my.conf 或者 my.ini 文件的 [mysqld] 组中，常用参数如下：
+
+```ini
+# 01-缓冲区，将数据保存在内存中，保证从内存读取数据。推荐值为总物理内存的50%~80%。
+innodb_buffer_pool_size=4
+# 02-日志组（Redo）中每个日志文件的大小，默认48MB，日志文件越大越节省磁盘IO，但需要注意
+日志文件变大增加崩溃恢复时间
+innodb_log_file_size=48
+# 03-用来控制Redo日志刷新到磁盘的策略。
+innodb_flush_log_at_trx_commit=1
+# 04-每提交1次事务同步写到磁盘中，可以设置为n。
+sync_binlog=1
+# 05-脏页占innodb_buffer_pool_size的比例时，触发刷脏页到磁盘。推荐值为25%~50%。
+innodb_max_dirty_pages_pct=30
+# 06-后台进程最大IO性能指标。默认200，如果SSD，调整为5000~20000
+innodb_io_capacity=200
+# 07-指定innodb共享表空间文件及大小。
+innodb_data_file_path=
+# 08-慢查询日志的阈值设置，单位秒。
+long_qurey_time=3
+# 09-MySQL的binlog复制的形式，MySQL8.0默认为row
+binlog_format=row
+# 10-同时连接客户端的最大数量
+max_connections=200
+# 11-全量日志建议关闭。默认关闭。
+general_log=0
+```
+
+在 MySQL5.1.X 版本中，由于代码写死，因此最多只会刷新 100 个脏页到磁盘、合并 20 个插入缓冲，即使磁盘有能力处理更多的请求，也只会处理这么多，这样在更新量较大（比如大批量 Insert）的时候，脏页刷新可能就会跟不上，导致性能下降。
+
+MySQL5.5.X 版本之后，`innodb_io_capacity` 参数可以动态调整刷新脏页的数量，这在一定程度上解决了这一问题。
+
+`innodb_io_capacity` 参数默认是 200，单位是页。该参数设置的大小取决于硬盘的 IOPS，即每秒的输入输出量（或读写次数）。 至于什么样的磁盘配置应该设置 `innodb_io_capacity` 参数的值是多少，可参考下表：
+
+| InnoDB-IO-capacity | 磁盘配置       |
+| ------------------ | -------------- |
+| 200                | 单盘 SAS/SATA   |
+| 2000               | SAS*12 RAID 10 |
+| 500                | SSD            |
+| 5000               | FUSION-IO      |
+
+### 服务器硬件优化
+
+提升硬件设备，例如选择尽量 **高频率的内存**（频率不能高于主板的支持）、提升 **网络带宽**、使用 SSD 高速磁盘、提升 **CPU 性能** 等。
+
+**CPU 的选择:**
+
+- 对于数据库**并发比较高**的场景，CPU 的数量比频率重要
+- 对于 **CPU 密集型场景和频繁执行复杂 SQL 的场景**，CPU 的频率越高越好。
 
